@@ -16,7 +16,7 @@ public class Code_15552 {
             String[] num = line.split(" ");
             a = Integer.parseInt(num[0]);
             b = Integer.parseInt(num[1]);
-            bufferedWriter.write(String.valueOf(a+b)+"\n");
+            bufferedWriter.write(String.valueOf(a + b) + "\n");
         }
         bufferedWriter.flush();
     }

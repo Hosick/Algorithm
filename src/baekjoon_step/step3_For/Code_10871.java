@@ -10,12 +10,12 @@ public class Code_10871 {
         int[] A = new int[N];
         int X = input.nextInt();
 
-        for (int i=0; i<N; i++){
+        for (int i = 0; i < N; i++) {
             A[i] = input.nextInt();
         }
 
-        for (int i=0; i<N; i++){
-            if(A[i]<X) System.out.print(A[i]+" ");
+        for (int i = 0; i < N; i++) {
+            if (A[i] < X) System.out.print(A[i] + " ");
         }
 
     }

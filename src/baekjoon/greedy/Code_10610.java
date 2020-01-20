@@ -1,4 +1,4 @@
-package baekjoon;
+package baekjoon.greedy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +18,7 @@ public class Code_10610 {
         Collections.sort(n);    //  정렬
         Collections.reverse(n); //  역순
 
-        if (n.get(n.size()-1) == 0 && sum % 3 == 0) {   //  n에 0이 포함되어 있으며, 각 자릿수 값의 합이 3
+        if (n.get(n.size() - 1) == 0 && sum % 3 == 0) {   //  n에 0이 포함되어 있으며, 각 자릿수 값의 합이 3
             for (int i : n)
                 System.out.print(i);    //출력
         } else

@@ -18,7 +18,7 @@ public class Code_11022 {
         }
 
         for (int j = 0; j < n; ++j) {
-            System.out.println("Case #" + (j + 1) + ": "+a[j]+" + "+b[j]+" = "+c[j]);
+            System.out.println("Case #" + (j + 1) + ": " + a[j] + " + " + b[j] + " = " + c[j]);
         }
     }
 }

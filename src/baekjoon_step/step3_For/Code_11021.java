@@ -18,7 +18,7 @@ public class Code_11021 {
         }
 
         for (int j = 0; j < n; ++j) {
-            System.out.println("Case #"+(j+1)+": "+c[j]);
+            System.out.println("Case #" + (j + 1) + ": " + c[j]);
         }
     }
 }

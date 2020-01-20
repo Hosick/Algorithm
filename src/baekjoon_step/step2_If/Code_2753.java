@@ -8,7 +8,7 @@ public class Code_2753 {
 
         int year = input.nextInt();
 
-        if((year%4==0 && year%100!=0)||year%400==0)
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
             System.out.println(1);
         else
             System.out.println(0);

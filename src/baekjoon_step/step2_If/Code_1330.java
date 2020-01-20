@@ -9,9 +9,9 @@ public class Code_1330 {
         int a = input.nextInt();
         int b = input.nextInt();
 
-        if(a>b)
+        if (a > b)
             System.out.println(">");
-        else if(a<b)
+        else if (a < b)
             System.out.println("<");
         else
             System.out.println("==");

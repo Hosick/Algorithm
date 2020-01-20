@@ -12,7 +12,7 @@ public class Code_2439 {
         }
 
         for (int i = 1; i <= N; i++) {
-            for(int k = N-i-1; k>=0; k--){
+            for (int k = N - i - 1; k >= 0; k--) {
                 System.out.print(" ");
             }
             for (int j = 0; j < i; j++) {
