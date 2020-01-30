@@ -20,12 +20,12 @@ public class Code_10814 {
         Arrays.sort(user, new Comparator<String[]>() {
             @Override
             public int compare(String[] o1, String[] o2) {
-                return Arrays.compare(o1, o2);
+                return Integer.compare(Integer.parseInt(o1[0]), Integer.parseInt(o2[0]));
             }
         });
 
         for (int i = 0; i < n; ++i) {
-            System.out.println(user[i][0] + "" + user[i][1]);
+            System.out.println(user[i][0] + " " + user[i][1]);
         }
     }
 }
