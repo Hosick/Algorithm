@@ -17,9 +17,8 @@ public class Code_11053 {
 
         /*인덱스가 i보다 작은 j배열 들에서 값이 array[i]보다 작으며 거친 수들이 가장 많은 인덱스 j를 찾기*/
         for (int i = 1; i < n; ++i) {
-            int max = 0;
             for (int j = 0; j < i; ++j) {
-                if (array[i] > array[j] && increase[j] >= max && increase[j] + 1 > increase[i])
+                if (array[i] > array[j] &&  increase[j] + 1 > increase[i])
                     increase[i] = increase[j] + 1;
             }
         }
