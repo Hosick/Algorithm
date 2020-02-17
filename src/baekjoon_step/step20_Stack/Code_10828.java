@@ -21,14 +21,19 @@ public class Code_10828 {
 
             if (command.equals("push")) {
                 stack.push(Integer.parseInt(st.nextToken()));
+                continue;
             } else if (command.equals("pop")) {
                 stack.pop();
+                continue;
             } else if (command.equals("size")) {
                 stack.size();
+                continue;
             } else if (command.equals("empty")) {
                 stack.empty();
+                continue;
             } else if (command.equals("top")) {
                 stack.top();
+                continue;
             }
         }
     }
