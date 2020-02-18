@@ -1,7 +1,7 @@
 package baekjoon_step.step21_QueueAndDeque;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class Code_18258 {
@@ -43,7 +43,7 @@ public class Code_18258 {
     }
 
     private static class MyQueue {
-        ArrayList<String> queue = new ArrayList<>();
+        LinkedList<String> queue = new LinkedList<>();
         int front = 0;
         int back = -1;
 
