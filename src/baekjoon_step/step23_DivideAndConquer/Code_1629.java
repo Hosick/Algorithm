@@ -6,9 +6,9 @@ public class Code_1629 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        int a = input.nextInt();
-        int b = input.nextInt();
-        int c = input.nextInt();
+        int a = input.nextInt();    //  자연수 a
+        int b = input.nextInt();    //  제곱할 횟수  b
+        int c = input.nextInt();    //  나누고 나머지를 구할 c
 
         System.out.print(square(a, b, c));
     }
