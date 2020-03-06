@@ -14,9 +14,10 @@ public class Code_2579 {
 
         int[][] sum = new int[n][2];     //  계단 까지 합계 점수(0은 다음 칸을 갈 수 있고, 1은 다음 칸을 갈 수 없다)
         sum[0][0] = floor[0];            // 0
-        sum[1][0] = floor[1];            // 1
-        sum[1][1] = floor[0] + floor[1]; // 0+1
-
+        if(n>=2) {
+            sum[1][0] = floor[1];            // 1
+            sum[1][1] = floor[0] + floor[1]; // 0+1
+        }
         for (int i = 2; i < n; ++i) {
             sum[i][0] = Math.max(sum[i - 2][0], sum[i - 2][1]) + floor[i];  //  두 칸 밑에서 점프함 (다음 칸을 밟을 수 있음)
             sum[i][1] = sum[i - 1][0] + floor[i];                           //  한 칸 밑에서 올라옴 (다음 칸을 밟지 못함)
