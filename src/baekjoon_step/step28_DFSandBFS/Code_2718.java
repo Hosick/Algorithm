@@ -46,7 +46,6 @@ public class Code_2718 {
         q.offer(a);
         q.offer(b);
         visit[a][b] = true;
-        int width = 1;
 
         while (!q.isEmpty()) {
             int ta = q.poll();
