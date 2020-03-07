@@ -1,7 +1,6 @@
 package baekjoon_step.step28_DFSandBFS;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Code_1012 {
@@ -40,7 +39,6 @@ public class Code_1012 {
                     }
                 }
             }
-
             bw.write(String.valueOf(count) + "\n");
         }
 
