@@ -7,8 +7,10 @@ import java.util.StringTokenizer;
 
 public class Code_2206 {
     static int[][] map;
+    static boolean[][][] visited;
     static int n;
     static int m;
+    static int answer = Integer.MAX_VALUE;
     static int[] xm = {-1, 1, 0, 0};
     static int[] ym = {0, 0, -1, 1};
 
@@ -20,12 +22,12 @@ public class Code_2206 {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         map = new int[n][m];
+        visited = new boolean[2][n][m];
 
         for (int i = 0; i < n; ++i) {
             String line = br.readLine();
             for (int j = 0; j < m; ++j) {
                 map[i][j] = line.charAt(j) - '0';
-                map[i][j] = map[i][j] == 1 ? -1 : 0;    //  장애물을 -1로 변경
             }
         }
 
@@ -36,59 +38,58 @@ public class Code_2206 {
     }
 
     private static int bfs() {
-        if (n == 1 && m == 1) return 0;
-        int chance = 1; //  벽 뚫기 기회 1번 제공
-        map[0][0] = 1;
         Queue<Integer> q = new LinkedList<Integer>();
         q.offer(0);
         q.offer(0);
-
+        q.offer(0);
+        q.offer(1);
 
         while (!q.isEmpty()) {
+            int broken = q.poll();
             int tx = q.poll();
             int ty = q.poll();
+            int count = q.poll();
 
-            int count = 0;  //  네방향이 다 막혀있는지 체크
+            /* 마지막에 칸에서의 최저값 구하기 */
+            if (tx == n - 1 && ty == m - 1) {
+                answer = Math.min(answer, count);
+                continue;
+            }
+
             for (int i = 0; i < 4; ++i) {
                 int nx = tx + xm[i];
                 int ny = ty + ym[i];
 
-                if (nx < 0 || ny < 0 || nx >= n || ny >= m) { //  map 을 벗어나면 pass
-                    ++count;    //  막힌길 체크 +1
+                /* nx, ny가 범위안에 있는지 체크 */
+                if (nx < 0 || ny < 0 || nx >= n || ny >= m)
                     continue;
-                } else if (map[nx][ny] == -1) { //  막힌길 체크 +1
-                    ++count;
-                } else if (map[nx][ny] == 0) {
+
+                /* 이미 벽을 부쉈을 때 */
+                if (broken == 1 && map[nx][ny] == 0 && !visited[broken][nx][ny]) {
+                    visited[broken][nx][ny] = true;
+                    q.offer(1);
                     q.offer(nx);
                     q.offer(ny);
-                    map[nx][ny] = map[tx][ty] + 1;
+                    q.offer(count + 1);
                 }
-                /* 상하좌우 벽뚫기 */
-                if (i == 3 && count == 4 && chance == 1) {
-                    --chance;
-                    if (tx - 1 >= 0) {
-                        map[tx - 1][ty] = map[tx][ty] + 1;
-                        q.offer(tx - 1);
-                        q.offer(ty);
-                    }
-                    if (ty - 1 >= 0) {
-                        map[tx][ty - 1] = map[tx][ty] + 1;
-                        q.offer(tx);
-                        q.offer(ty - 1);
-                    }
-                    if (tx + 1 < n) {
-                        map[tx + 1][ty] = map[tx][ty] + 1;
-                        q.offer(tx + 1);
-                        q.offer(ty);
-                    }
-                    if (ty + 1 < m) {
-                        map[tx][ty + 1] = map[tx][ty] + 1;
-                        q.offer(tx);
-                        q.offer(ty + 1);
-                    }
+                /* 벽을 아직 안부쉈지만 벽을 만났을 때 */
+                else if (broken == 0 && map[nx][ny] == 1 && !visited[broken + 1][nx][ny]) {
+                    visited[broken + 1][nx][ny] = true;
+                    q.offer(1);
+                    q.offer(nx);
+                    q.offer(ny);
+                    q.offer(count + 1);
+                }
+                /* 벽을 아직 안부쉈고 길을 만났을 때 */
+                else if (broken == 0 && map[nx][ny] == 0 && !visited[broken][nx][ny]) {
+                    visited[broken][nx][ny] = true;
+                    q.offer(0);
+                    q.offer(nx);
+                    q.offer(ny);
+                    q.offer(count + 1);
                 }
             }
         }
-        return map[n - 1][m - 1] == 0 ? -1 : map[n - 1][m - 1];
+        return answer == Integer.MAX_VALUE? -1 : answer;
     }
 }
