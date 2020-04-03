@@ -1,6 +1,6 @@
 package baekjoon.DP;
 
-import java.util.Scanner;
+        import java.util.Scanner;
 
 public class Code_11727 {
     public static void main(String[] args) {
