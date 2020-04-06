@@ -1,41 +1,24 @@
+/**
+ * 처음에는 차량의 진입 시점 순으로 정렬을 했지만 차량의 진출 시점으로 정렬하는게 훨씬 편했다.
+ **/
+
 package programmers.greedy;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 class 단속카메라 {
-    public static void main(String[] args) {
-        int[][] arr = {{-20,15}, {-20,-15}, {-14,-5}, {-18,-13}, {-5,-3}};
-        System.out.print(solution(arr));
-    }
+    public int solution(int[][] routes) {
+        int answer = 0;                 //  설치된 카메라의 개수
+        int camera = Integer.MIN_VALUE; //  카메라의 위치를 가장 왼쪽에서 시작
 
-    public static int solution(int[][] routes) {
-        /* 출발점이 빠른 차량 순으로 정렬 */
-        Comparator<int[]> cmp = (a, b) -> {
-            return a[0] - b[0];
-        };
-        Arrays.sort(routes, cmp);
+        /* 진출 지점이 빠른 차량 순으로 정렬 */
+        Arrays.sort(routes, (a, b) -> Integer.compare(a[1], b[1]));
 
-        /* */
-        int answer = routes.length;
-        boolean[] check = new boolean[answer];
-
-        /*  */
-        for (int i = 0; i < routes.length; ++i) {
-            if (check[i]) continue;
-            int meet = 0;
-            for (int j = i + 1; j < routes.length; ++j) {
-                if (routes[i][0] <= routes[j][0] && routes[j][0] <= routes[i][1]) {   //  차량 i와 j가 겹친다면 만난 j의 갯수만큼 --;
-                    if (routes[i][0] <= routes[j][1] && routes[j][1] <= routes[i][1]) {   //  완전히 겹친다면 -1만 하고 break;
-                        answer--;
-                        meet = 0;
-                        break;
-                    }
-                    meet++;
-                    check[j] = true;
-                }
+        for (int[] route : routes) {
+            if (camera < route[0]) {    //  카메라가 i번 route 진입시점보다 전에 있다면
+                camera = route[1];      //  카메라를 i번 route 진출시점에 설치하고
+                answer++;               //  ++answer
             }
-            answer -= meet;
         }
         return answer;
     }
