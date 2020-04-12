@@ -2,7 +2,7 @@ package programmers.stack_queue;
 
 import java.util.Stack;
 
-public class 탑 {
+class 탑 {
     class Tower {
         int index;
         int value;

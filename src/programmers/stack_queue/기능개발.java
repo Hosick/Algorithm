@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class 기능개발 {
+class 기능개발 {
     public int[] solution(int[] progresses, int[] speeds) {
         Queue<Integer> q = new LinkedList<>();  //  현재 작업 중인 기능들
         for(int i : progresses)                 //  기능들의 현 진행상태를 큐에 넣기

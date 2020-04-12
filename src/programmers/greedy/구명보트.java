@@ -2,7 +2,7 @@ package programmers.greedy;
 
 import java.util.Arrays;
 
-public class 구명보트 {
+class 구명보트 {
     public int solution(int[] people, int limit) {
         int answer = 0; //  정답 : 필요한 배의 갯수
         Arrays.sort(people);    //  우선 사람들을 무게순으로 정렬

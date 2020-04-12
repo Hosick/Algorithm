@@ -3,7 +3,7 @@ package programmers.stack_queue;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class 다리를지나는트럭 {
+class 다리를지나는트럭 {
     public int solution(int bridge_length, int weight, int[] truck_weights) {
         int answer = 0;
 

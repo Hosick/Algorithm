@@ -1,6 +1,6 @@
 package programmers.stack_queue;
 
-public class 주식가격 {
+class 주식가격 {
     public int[] solution(int[] prices) {
         int[] answer = new int[prices.length];  //  정답 배열
 

@@ -2,7 +2,7 @@ package programmers.hash;
 
 import java.util.Arrays;
 
-public class 전화번호부목록 {
+class 전화번호부목록 {
     public boolean solution(String[] phone_book) {
         Arrays.sort(phone_book, (a, b) -> Integer.compare(a.length(), b.length())); //  문자열의 길이 순으로 정렬
 

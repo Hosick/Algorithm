@@ -2,7 +2,7 @@ package programmers.hash;
 
 import java.util.*;
 
-public class 베스트앨범 {
+class 베스트앨범 {
     public int[] solution(String[] genres, int[] plays) {
         /* 해시맵에 장르별 총 플레이 수 넣기*/
         HashMap<String, Integer> map = new HashMap<>();
