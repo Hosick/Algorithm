@@ -7,7 +7,7 @@ public class Code_1904 {
         Scanner input = new Scanner(System.in);
 
         int n = input.nextInt();
-        long[] way = new long[n];
+        long[] way = new long[n+1];
         way[0] = 1;
         way[1] = 2;
 
