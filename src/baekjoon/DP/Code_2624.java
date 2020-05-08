@@ -34,6 +34,10 @@ public class Code_2624 {
             }
         }
 
-        System.out.println(dp[k][t]);
+        bw.write(String.valueOf(dp[k][t]));
+        bw.flush();
+
+        br.close();
+        bw.close();
     }
 }
