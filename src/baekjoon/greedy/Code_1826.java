@@ -1,88 +1,65 @@
+/**
+ * 주유소에 들릴 때 순서대로 들릴 곳을 정할 필요는 없다
+ * 갈 수 있는 주유소 중 가장 연료가 많은 주유소를 방문하면 된다.
+ * 위의 탐색을 목적지에 갈 수 있을 때까지 반복한다.
+ **/
 package baekjoon.greedy;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
 
 public class Code_1826 {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-        int ans = 0;
-        int n = input.nextInt();    //  주유소 개수
-        Queue<Station> pq = new PriorityQueue<>();  //  주유소들을 담을 pq 배열(거리 오름차순)
-
-        /* 주유소 정보 입력 */
-        int sumFuel = 0;
+        /* 주유소 개수, 정보 입력 및 정렬(거리 오름차순) */
+        int n = Integer.parseInt(br.readLine());
+        int[][] station = new int[n][2];
         for (int i = 0; i < n; ++i) {
-            int l = input.nextInt();
-            int f = input.nextInt();
-            pq.add(new Station(l, f));
-
-            sumFuel += f;
+            st = new StringTokenizer(br.readLine());
+            station[i][0] = Integer.parseInt(st.nextToken());
+            station[i][1] = Integer.parseInt(st.nextToken());
         }
+        Arrays.sort(station, Comparator.comparingInt(o -> o[0]));
 
-        int l = input.nextInt();    //  목적지의 위치
-        int p = input.nextInt();    //  기존에 있던 연료의 양
-        sumFuel += p;
+        /* 목표 위치와 기존 연료양 입력 */
+        st = new StringTokenizer(br.readLine());
+        int l = Integer.parseInt(st.nextToken());
+        int p = Integer.parseInt(st.nextToken());
+        br.close();
 
-        /* 연료를 다합쳐서 목적지에 못간다면 -1 출력 후 return */
-        if (sumFuel < l) {
-            System.out.println(-1);
-            return;
-        }
+        /* 갈 수 있는 정류장 pq(연료 내림차 순) */
+        Queue<int[]> pq = new PriorityQueue<>((o1, o2) -> o2[1] - o1[1]);   //  들릴 수 있는 정류장 pq
+        int ans = 0;
+        int now = 0;            //  현재 위치
+        int fuel = p;           //  현재 연료
+        int limit = now + fuel; //  최대 위치
+        int idx = 0;
 
-        int currentLocation = 0;    //  갈 수 있는 가장 먼 주유소의 위치
-        int reachableLocation = p;  //  현재 연료로 갈수 있는 위치
-        int currentPetrol = p;      //  현재 연료
-        Queue<Station> pq2 = new PriorityQueue<>((o1, o2) -> o2.fuel - o1.fuel);    //  연료 내림차순 pq
+        /* 목적지를 갈 수 있을 때까지 */
+        while (limit < l) {
+            ans++;
+            /* 갈수 있는 정류장 추가  */
+            while (idx < n && station[idx][0] <= limit)
+                pq.add(station[idx++]);
 
-        /* 목적지에 갈수 있을 때 까지 */
-        Station next;
-        while (reachableLocation < l){
-            /* 현재 연로로 갈 수 있는 정류장을 pq 에서 pq2로 옮기기 추가 */
-            while (!pq.isEmpty() && pq.peek().location <= reachableLocation)
-                pq2.add(pq.remove());
-
-            /* 더 이상 갈수있는 주유소가 없다면 -1 출력 후 return */
-            if (pq2.isEmpty()){
-                System.out.println(-1);
-                return;
+            /* 갈수 있는 정류장이 안남았다면 -1 출력 */
+            if (pq.isEmpty()) {
+                ans = -1;
+                break;
             }
 
-            next = pq2.remove();
-            ans ++;
-
-            if(next.location < currentLocation){
-                reachableLocation += next.fuel;
-                currentPetrol += next.fuel;
-            }
-            else {
-                int usedFuel = next.location-currentLocation;
-                currentLocation = next.location;
-                currentPetrol = currentPetrol + next.fuel - usedFuel;
-                reachableLocation = currentLocation+currentPetrol;
-            }
-
+            /* 연료가 가장많은 주유소가 다음 주유소이다(방향은 상관없음) */
+            int[] stop = pq.remove();
+            fuel -= (stop[0] > now) ? (stop[0] - now) : 0;
+            fuel += stop[1];
+            now = Math.max(now, stop[0]);
+            limit = now + fuel;
         }
 
         System.out.println(ans);
-    }
-}
-
-/* 주유소 클래스 */
-class Station implements Comparable<Station> {
-    int location;   //  주유소의 위치
-    int fuel;       //  주유소의 연료 양
-
-    public Station(int l, int f) {
-        location = l;
-        fuel = f;
-    }
-
-    @Override
-    public int compareTo(Station o) {
-        return this.location - o.location;
     }
 }
