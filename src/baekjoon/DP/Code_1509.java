@@ -25,18 +25,15 @@ public class Code_1509 {
 
         /* 팰린드롬의 분할 개수 구하기*/
         int[] dp = new int[len + 1];    //  dp[i] = i번 인덱스까지의 팰린드롬 분할 최소개수
-        for (int i = 1; i <= len; i++) {
-            for (int j = 1; j <= i; j++) {
+        for (int i = 1; i <= len; i++) {    //  last idx
+            for (int j = 1; j <= i; j++) {  //  start idx
                 if (isPalin[j][i]) {
                     if (dp[i] == 0 || dp[i] > dp[j - 1] + 1) {
-                        System.out.println(dp[i] + " " + (dp[j - 1] + 1));
-                        System.out.println("dp[" + i + "] = dp[" + (j - 1) + "] + 1");
                         dp[i] = dp[j - 1] + 1;
                     }
                 }
             }
         }
         System.out.println(dp[len]);
-
     }
 }
