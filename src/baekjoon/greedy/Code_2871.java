@@ -1,48 +1,67 @@
 package baekjoon.greedy;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Code_2871 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int n = input.nextInt();
-        String word = input.next();
 
-        ArrayList<Character> card = new ArrayList<>();
-        for (int i = 0; i < n; ++i)
-            card.add(word.charAt(i));
+        int n = input.nextInt();        //  단어의 길이 입력
+        String word = input.next();     //  단어 입력
+        int[] alphabet = new int[26];   //  알파벳 배열
+        Map<Character, Stack<Integer>> map = new HashMap<>();   //  <알파벳, 스택<idx>> 맵 선언
+        boolean[] vis = new boolean[n]; //
+        input.close();
 
-        String my = "";
-        String your = "";
+        for (int i = 0; i < 26; ++i)
+            map.put((char) ('a' + i), new Stack<>());
+
         for (int i = 0; i < n; ++i) {
-            if (i % 2 == 0) //  상대 차례
-                your += card.remove(card.size() - 1);
-            else {
-                char min = 'z' + 1;
-                int minIdx = 0;
-                for (int j = card.size() - 1; j >= 0; --j) {
-                    if (card.get(j) < min) {
-                        min = card.get(j);
-                        minIdx = j;
-                    }
-                }
-                my += card.remove(minIdx);
-            }
+            char temp = word.charAt(i);
+            alphabet[temp - 'a']++;
+            map.get(temp).push(i);
+            vis[i] = false;
         }
 
-        for (int i = 0; i < (n / 2); ++i) {
+        int now = 0;
+        int it = n;
+        String my = "";
+        String your = "";
+        while (now < n) {
+            --it;
+            while (vis[it] || alphabet[word.charAt(it) - 'a'] <= 0)
+                --it;
+
+            your += word.charAt(it);
+            alphabet[word.charAt(it) - 'a']--;
+            map.get(word.charAt(it)).pop();
+            vis[it] = true;
+            now++;
+
+            char cur = 0;
+            for (int i = 0; i < 26; ++i) {
+                if (alphabet[i] > 0) {
+                    cur = (char) ('a' + i);
+                    alphabet[i]--;
+                    now++;
+                    break;
+                }
+            }
+            my += cur;
+            int pos = map.get(cur).peek();
+            map.get(cur).pop();
+            vis[pos] = true;
+        }
+
+        for (int i = 0; i < n / 2; ++i) {
             if (my.charAt(i) < your.charAt(i)) {
                 System.out.println("DA");
                 break;
-            } else if (my.charAt(i) > your.charAt(i)) {
-                System.out.println("NE");
-                break;
             }
-            if (i == (n / 2 - 1)) {
+            if (i == n / 2 - i)
                 System.out.println("NE");
-            }
         }
+
         System.out.println(my);
     }
 }
