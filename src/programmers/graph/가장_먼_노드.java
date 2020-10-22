@@ -1,4 +1,4 @@
-package graph;
+package programmers.graph;
 
 import java.util.*;
 import java.util.stream.IntStream;
